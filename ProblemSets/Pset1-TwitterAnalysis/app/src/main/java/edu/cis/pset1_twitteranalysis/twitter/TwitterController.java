@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
 
+import edu.cis.pset1_twitteranalysis.ConsoleColors;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
@@ -20,7 +21,7 @@ public class TwitterController {
     private int frequencyMax;
     Context context;
 
-    public TwitterController(Context currContext) {
+    public TwitterController(Context currContext) throws TwitterException {
         context = currContext;
 
         ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -37,6 +38,7 @@ public class TwitterController {
         wordCounts = new HashMap<String[], Integer>();
         commonWords = new ArrayList<String>();
         getCommonWords();
+        getRecommendations();
     }
 
     /********** PART 1 *********/
@@ -53,7 +55,7 @@ public class TwitterController {
                 commonWords.add(sc.nextLine());
             }
         } catch (Exception err) {
-            Log.d("COMMON_WORDS", err.toString());
+            Log.d(ConsoleColors.PURPLE + "COMMON_WORDS", err.toString()+ConsoleColors.RESET);
         }
     }
 
@@ -249,6 +251,7 @@ public class TwitterController {
                 "ISHCMC"
         };
         List<User> schoolUsers = new ArrayList<User>();
+
         for (String school : Schools) {
             List<User> users = twitter.searchUsers(school, 1);
             for (int i = 0; i < 2; i++) {

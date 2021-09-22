@@ -6,13 +6,12 @@ import android.os.Bundle;
 import android.os.StrictMode;
 
 import edu.cis.pset1_twitteranalysis.twitter.TwitterController;
+import twitter4j.TwitterException;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -21,8 +20,22 @@ public class MainActivity extends AppCompatActivity
         StrictMode.setThreadPolicy(policy);
 
         //TODO 1: Tweet something!
-        TwitterController myC = new TwitterController(this);
-//        myC.postTweet("lucas is "); //this will tweet to your account
+//        TwitterController myC = new TwitterController(this);
+        try {
+            TwitterController myC = new TwitterController(this);
+            try {
+                myC.getRecommendations();
+            } catch (TwitterException e) {
+                System.out.println(ConsoleColors.PURPLE + "BigProblems" + ConsoleColors.RESET);
+                e.printStackTrace();
 
+            }
+        } catch (TwitterException e) {
+            System.out.println(e.getMessage());
+            System.out.println(ConsoleColors.PURPLE + "EvenBiggerProblems" + ConsoleColors.RESET);
+            e.printStackTrace();
+        }
+
+//        myC.postTweet(this.getRecommendations); //this will tweet to your account
     }
 }
