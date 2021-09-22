@@ -23,8 +23,16 @@ public class MainActivity extends AppCompatActivity {
 //        TwitterController myC = new TwitterController(this);
         try {
             TwitterController myC = new TwitterController(this);
+            try{
+                myC.findUserStats("cs_cis");
+//                myC.postTweet("yes i am just bad "); //this will tweet to your account
+            } catch (Exception e) {
+                System.out.println("problem in finding handle");
+                e.printStackTrace();
+            }
             try {
                 myC.getRecommendations();
+//                System.out.println(ConsoleColors.GREEN + "Got Recommendation" + ConsoleColors.RESET);
             } catch (TwitterException e) {
                 System.out.println(ConsoleColors.PURPLE + "BigProblems" + ConsoleColors.RESET);
                 e.printStackTrace();
@@ -36,6 +44,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-//        myC.postTweet(this.getRecommendations); //this will tweet to your account
+
     }
 }

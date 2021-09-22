@@ -86,6 +86,7 @@ public class TwitterController {
             200 tweets every request. */
             try {
                 statuses.addAll(twitter.getUserTimeline(handle, page));
+                System.out.println(statuses.toString() + "this should be status");
             } catch (Exception err) {
                 Log.d("fetchTweets", "could not get user timeline");
             }
@@ -201,6 +202,7 @@ public class TwitterController {
          * Remember to use .clear() method on collections so that
          * consecutive requests don't count words from previous requests.
          */
+        this.fetchTweets("cs_cis");
         this.splitIntoWords();
         this.createListOfCleanWords();
         this.countAllWords();
@@ -209,6 +211,7 @@ public class TwitterController {
         this.tokens.clear();
         this.statuses.clear();
         this.wordCounts.clear();
+        System.out.println("The users Most common word is: " + mostFeqWord.toString() + " it came up " + wordCount + " times");
         return mostFeqWord + wordCount;
     }
 
@@ -254,8 +257,8 @@ public class TwitterController {
 
         for (String school : Schools) {
             List<User> users = twitter.searchUsers(school, 1);
-            for (int i = 0; i < 2; i++) {
-                schoolUsers.add(users.get(i));
+            for (int m = 0; m>school.length(); m++) {
+                schoolUsers.add(users.get(m));
             }
         }
         System.out.println(schoolUsers.toString());
@@ -315,6 +318,7 @@ public class TwitterController {
         for (int i = 0; i < 3; i++) {
             teachers.add(popularTeacher.get(numberOfFollowers.get(i)));
         }
+        System.out.println(teachers + "should be teachers");
         return teachers;
     }
 
@@ -326,7 +330,7 @@ public class TwitterController {
             List<User> topThree = this.getTopThreeTeachers(potentialTeacher);
             recommendation.addAll(topThree);
         }
-        System.out.println(recommendation);
+//        System.out.println(topThree.toString());
         return recommendation;
     }
 }
