@@ -18,8 +18,8 @@ public class TwitterController
 {
     private Twitter twitter;
     private ArrayList<Status> statuses;
-    private ArrayList<String> tokens;
-    private HashMap<String, Integer> wordCounts;
+    private ArrayList<String[]> tokens;
+    private HashMap<String[], Integer> wordCounts;
     ArrayList<String> commonWords;
     private String popularWord;
     private int frequencyMax;
@@ -34,13 +34,12 @@ public class TwitterController
                 .setOAuthConsumerKey("L2BKElNco18WhHak3NkCM05t4")
                 .setOAuthConsumerSecret("DXL2KqEegX03uJbQNPxecGFqPiKUhw5vCpnzukiL3OvxFaJIiF")
                 .setOAuthAccessToken("1042321525901152256-Po8en0crJfjW74hUWUgKt34n5AAAlP")
-                .setOAuthAccessTokenSecret("74bEpnfXM8O3Or3kajQERMeTjJVoYJFGXamUa5qDopE7y");
+                .setOAuthAccessTokenSecret("74bEpnfXM8O3Or3kajQERMeTjJVoYJFGXamUa5qDopE7y");;
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
-
         statuses = new ArrayList<Status>();
-        tokens = new ArrayList<String>();
-        wordCounts = new HashMap<>();
+        tokens = new ArrayList<String[]>();
+        wordCounts = new HashMap<String[], Integer>();
         commonWords = new ArrayList<String>();
         getCommonWords();
     }
@@ -52,7 +51,6 @@ public class TwitterController
 
         try {
             AssetManager am = context.getAssets();
-
             //this file can be found in src/main/assets
             InputStream myFile = am.open("commonWords.txt");
             Scanner sc = new Scanner(myFile);
@@ -125,7 +123,11 @@ public class TwitterController
      */
     private void splitIntoWords()
     {
-
+        for(Status status : statuses) { //Loop through statuses
+            String[] word = status.getText().split(" "); //New array to get the text and split it by " "
+            for (String words : word) //loop through word
+                tokens.add(word); //add word to token
+        }
     }
 
 
@@ -136,11 +138,17 @@ public class TwitterController
      * If the word is a common word, return null
      */
     @SuppressWarnings("unchecked")
-    private String cleanOneWord(String word)
+    private String cleanOneWord(String[] word)
     {
-        return "";
+        String clean = word.toString().trim().replaceAll("[^a-zA-z", "").toLowerCase(); //remove extra spaces replace everything non A-Z char and set it to lower case
+        for (String commonWord : commonWords){ //loop through common words
+            if(clean.equals(commonWord)) //if the clean words is in common Words
+            {
+                return null;
+            }
+        }
+        return clean;
     }
-
 
     /*
      * TODO 4: loop through each word, get a clean version of each word
@@ -149,7 +157,11 @@ public class TwitterController
     @SuppressWarnings("unchecked")
     private void createListOfCleanWords()
     {
-
+        ArrayList<String> cleanTokens = new ArrayList<String>(); //init new clean arraylist
+        for (String[] token : tokens){ //loop through and add cleaned token to clean tokens
+            cleanTokens.add(this.cleanOneWord(token));
+        }
+        tokens = new ArrayList<String[]>(cleanTokens);
     }
 
     /*
@@ -158,27 +170,47 @@ public class TwitterController
     @SuppressWarnings("unchecked")
     private void countAllWords()
     {
-
+        for (String[] token : tokens){
+            if (wordCounts.contains(token)){
+                int count = wordCounts.get(token) +1;
+                wordCounts.put(token, count);
+            }
+            else{
+                wordCounts.put(token , 1);
+            }
+        }
     }
-
 
     //TODO 6: return the most frequent word's string in any appropriate format
     @SuppressWarnings("unchecked")
-    public String getTopWord()
+    public String[] getTopWord()
     {
-        return "";
-
+        int maxCount = 0;
+        String result = "";
+        for(Map.Entry<String[], Integer> entry : wordCounts.entrySet()) {
+            int count = entry.getValue();
+            String[] word = entry.getKey();
+            if (count >= maxCount){
+                result = word;
+            }
+        }
+        return result;
     }
 
     //TODO 7: return the most frequent word's count as an integer.
     @SuppressWarnings("unchecked")
-    public int getTopWordCount()
+    public String[] getTopWordCount()
     {
-        return 0;
+        String[] maxCount = 0;
+        for (String[] count : wordCount.value()){
+            if (count >=maxCount){
+                maxCount = count;
+            }
+        }
+        return maxCount;
     }
 
-
-    public String findUserStats(String handle)
+    public String[] findUserStats(String handle)
     {
         /*
          * TODO 8: you put it all together here. Call the functions you
@@ -187,13 +219,21 @@ public class TwitterController
          * Remember to use .clear() method on collections so that
          * consecutive requests don't count words from previous requests.
          */
-        return "";
+        this.splitIntoWords();
+        this.createListOfCleanWords();
+        this.countAllWords();
+        String[] mostFreqword = this.getTopWord();
+        String[] maxCount = this.getTopWordCount();
+        this.tokens.clear();
+        this.statuses.clear();
+        this.wordCounts.clear();
+        return mostFreqword;
+        return maxCount;
     }
 
     /*********** PART 3 **********/
 
     //TODO 9: Create your own method that recommends possible teaching candidates.
-
     // Example: A method that returns 100 tweets from keyword(s).
     public List<Status> searchKeywords(String keywords)
     {
@@ -218,4 +258,89 @@ public class TwitterController
         }
         return searchResults;
     }
+
+    public List<Status> searchSchools() throws TwitterException {
+        // try
+        //     {
+        //         Query query = new Query();
+        //     }
+        // catch (TwitterException e);
+        String[] Schools = {"MIT", "CIS", "Harvard"};
+        List<User> schoolUsers = new ArrayList<User>();
+        for (String school : Schools){
+            List<Users> users = twitter.searchUsers(school, 1);
+            for (int i = 0; i < 2; i++) {
+                school.users.add(users.get(i));
+            }
+        }
+    }
+
+    public List<User> getPossibleTeachers(User school){
+        Long nexCursor = -1;
+        ArrayList<User> followers = new ArrayList<User>();
+        do {
+            PagableResponseList<User> userResponse = twitter.getFollowersList(user.getScreenName, nextCursor);
+            nextCursor = userResponse.getNextCursor();
+            followers.addAll(userResponse);
+        }
+        while ( nextCursor > 0);
+        Hashmap<Integer, User> potentialTeacher = new Hashmap<>();
+
+        for (User user : followers) {
+            String bio = user.getDescription().toLowercase();
+            if (bio.contains("education") ||
+                    bio.contains("teacher") ||
+                    bio.contains("school") ||
+                    bio.contains("professor")||
+                    bio.contains("learning")||
+                    bio.contains("educator")||
+                    bio.contains("mentor")||
+                    bio.contains("coach")||
+                    bio.contains("researcher")||
+                    bio.contains("trainer")||
+                    bio.contains("ed")||
+                    bio.contains("int'l")||
+                    bio.contains("ibpyp")||
+                    bio.contains("myp")||
+                    bio.contains("ib")||
+                    bio.contains("nerd")||
+                    bio.contains("history")||
+                    bio.contains("english")||
+                    bio.contains("bio")||
+                    bio.contains("biology")||
+                    bio.contains("chemistry")||
+                    bio.contains("cs")||
+                    bio.contains("physics")||
+                    bio.contains("math")||
+                    bio.contains("counselor"))
+            {
+                potentialTeacher.put(user.getFollowersCount(), user);
+            }
+        }
+        return potentialTeacher;
+    }
+    public List<User> getTopThreeTeachers(HashMap<Integer, User> popularTeacher)
+    {
+        ArrayList<Integer> numberOfFollowers = popularTeacher.keys();
+        Collections.sort(numberOfFollowers);
+        ArrayList<User> teachers = new ArrayList<User>();
+        for (int i = 0; i < 3; i++){
+            teacher.add(popularTeacher.get(numberOfFollowers.get(i)));
+        }
+        return teachers;
+    }
+
+    public List<User> getRecommendations()
+    {
+        List<user> schools = this.searchSchools();
+        List<User> recommendation = new ArrayList<User>();
+        for (User school: schools){
+            HashMap<Integer, User> potentialTeacher = this.getPossibleTeachers(school);
+            List<User> topThree = this.topThreeTeachers(potentialTeacher);
+            recommendation.addAll(topThree);
+        }
+        system.out.println(recommendation);
+        return recommendation;
+    }
 }
+
