@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity
 
         //TODO 1: Tweet something!
         TwitterController myC = new TwitterController(this);
-        myC.postTweet("hello world"); //this will tweet to your account
+        myC.postTweet("amongus I can actually start coding now"); //this will tweet to your account
 
     }
 }

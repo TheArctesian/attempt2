@@ -31,10 +31,10 @@ public class TwitterController
 
         ConfigurationBuilder cb =  new ConfigurationBuilder();
         cb.setDebugEnabled(true)
-                .setOAuthConsumerKey("**********")
-                .setOAuthConsumerSecret("********************************")
-                .setOAuthAccessToken("********************************")
-                .setOAuthAccessTokenSecret("********************************s");
+                .setOAuthConsumerKey("L2BKElNco18WhHak3NkCM05t4")
+                .setOAuthConsumerSecret("DXL2KqEegX03uJbQNPxecGFqPiKUhw5vCpnzukiL3OvxFaJIiF")
+                .setOAuthAccessToken("1042321525901152256-Po8en0crJfjW74hUWUgKt34n5AAAlP")
+                .setOAuthAccessTokenSecret("74bEpnfXM8O3Or3kajQERMeTjJVoYJFGXamUa5qDopE7y");
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
 
