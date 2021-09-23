@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             TwitterController myC = new TwitterController(this);
             try{
-                myC.findUserStats("cs_cis");
+                myC.findUserStats("kanyewest");
 //                myC.postTweet("yes i am just bad "); //this will tweet to your account
             } catch (Exception e) {
                 System.out.println("problem in finding handle");

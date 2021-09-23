@@ -37,8 +37,6 @@ public class TwitterController {
         wordCounts = new HashMap<String, Integer>();
         commonWords = new ArrayList<String>();
         getCommonWords();
-        getRecommendations();
-        findUserStats("cs_cis");
     }
 
     /********** PART 1 *********/
@@ -112,7 +110,7 @@ public class TwitterController {
                 tokens.add(words[i]);
             ; //add word to token
         }
-        System.out.println(tokens + ConsoleColors.CYAN + "a lof of words hear" + ConsoleColors.RESET);
+        //System.out.println(tokens + ConsoleColors.CYAN + "a lof of words hear" + ConsoleColors.RESET);
     }
 
     /*
@@ -197,7 +195,7 @@ public class TwitterController {
          * Remember to use .clear() method on collections so that
          * consecutive requests don't count words from previous requests.
          */
-        this.fetchTweets("cs_cis");
+        this.fetchTweets(handle);
         this.splitIntoWords();
         this.createListOfCleanWords();
         this.countAllWords();
@@ -206,7 +204,7 @@ public class TwitterController {
         this.tokens.clear();
         this.statuses.clear();
         this.wordCounts.clear();
-        System.out.println("The users Most common word is: " + mostFeqWord.toString() + " it came up " + wordCount + " times");
+        System.out.println(handle + "s most common word is: " + mostFeqWord.toString() + " it came up " + wordCount + " times");
         return mostFeqWord + wordCount;
     }
 
@@ -218,7 +216,6 @@ public class TwitterController {
         Query query = new Query(keywords);
         query.setCount(100);
         query.setSince("2015-12-1");
-
         //create an ArrayList to store results, which will be of type Status
         List<Status> searchResults = new ArrayList<>();
         try {
@@ -235,22 +232,22 @@ public class TwitterController {
 
     public List<User> searchSchools() throws TwitterException {
         String[] Schools = {
-                "CIS 漢基國際學校",
-                "Dwight School Seoul",
+                "CISHK",
+                "DwightSeoul",
                 "SJIIES",
                 "BISP",
-                "St Andrews Bangkok",
+                "standrewsbkk",
                 "ISHCMC"
         };
         List<User> schoolUsers = new ArrayList<User>();
-
         for (String school : Schools) {
             List<User> users = twitter.searchUsers(school, 1);
-            for (int m = 0; m > school.length(); m++) {
+            for (int m = 0; m > Schools.length; m++) {
                 schoolUsers.add(users.get(m));
+                System.out.println(users.get(m) + "assholes in albania");
             }
         }
-        System.out.println(schoolUsers.toString());
+        System.out.println(schoolUsers.toString() + "School Users");
         return schoolUsers;
     }
 
