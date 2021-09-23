@@ -14,8 +14,8 @@ import java.util.*;
 public class TwitterController {
     private Twitter twitter;
     private ArrayList<Status> statuses;
-    private ArrayList<String[]> tokens;
-    private HashMap<String[], Integer> wordCounts;
+    private ArrayList<String> tokens;
+    private HashMap<String, Integer> wordCounts;
     ArrayList<String> commonWords;
     private String popularWord;
     private int frequencyMax;
@@ -33,11 +33,12 @@ public class TwitterController {
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
         statuses = new ArrayList<Status>();
-        tokens = new ArrayList<String[]>();
-        wordCounts = new HashMap<String[], Integer>();
+        tokens = new ArrayList<String>();
+        wordCounts = new HashMap<String, Integer>();
         commonWords = new ArrayList<String>();
         getCommonWords();
         getRecommendations();
+        findUserStats("cs_cis");
     }
 
     /********** PART 1 *********/
@@ -68,6 +69,7 @@ public class TwitterController {
         }
         return statusTextToReturn;
     }
+
     // Example query with paging and file output.
     private void fetchTweets(String handle) {
         //Create a twitter paging object that will start at page 1 and hole 200 entries per page.
@@ -80,7 +82,6 @@ public class TwitterController {
             200 tweets every request. */
             try {
                 statuses.addAll(twitter.getUserTimeline(handle, page));
-                System.out.println(statuses.toString() + "this should be status");
             } catch (Exception err) {
                 Log.d("fetchTweets", "could not get user timeline");
             }
@@ -90,11 +91,12 @@ public class TwitterController {
         System.out.println("Number of Tweets Found: " + numberOfTweetsFound);
         //Use enhanced for loop to print all the tweets found.
         int count = 1;
-        for (Status tweet : statuses) {
-            System.out.println(count + ". " + tweet.getText());
-            count++;
-        }
+//        for (Status tweet : statuses) {
+//            System.out.println(count + ". " + tweet.getText());
+//            count++;
+//        }
     }
+
     /********** PART 2 *********/
     /*
      * TODO 2: this method splits a whole status into different words. Each word
@@ -102,11 +104,15 @@ public class TwitterController {
      * provided. Loop through the "statuses" ArrayList.
      */
     private void splitIntoWords() {
-        for (Status status : statuses) { //Loop through statuses
-            String[] word = status.getText().split(" "); //New array to get the text and split it by " "
-            for (String words : word) //loop through word
-                tokens.add(word); //add word to token
+        for (Status tweet : statuses) { //Loop through statuses
+//            System.out.println(tweet.getText() + tweet.getText().getClass().getName());
+            String word = tweet.getText();//New array to get the text and split it by " "
+            String[] words = word.split(" ");
+            for (int i = 0; i < words.length; i++) //loop through word
+                tokens.add(words[i]);
+            ; //add word to token
         }
+        System.out.println(tokens + ConsoleColors.CYAN + "a lof of words hear" + ConsoleColors.RESET);
     }
 
     /*
@@ -116,7 +122,7 @@ public class TwitterController {
      * If the word is a common word, return null
      */
     @SuppressWarnings("unchecked")
-    private String cleanOneWord(String[] word) {
+    private String cleanOneWord(String word) {
         String clean = word.toString().trim().replaceAll("[^a-zA-z]", "").toLowerCase(); //remove extra spaces replace everything non A-Z char and set it to lower case
         for (String commonWord : commonWords) { //loop through common words
             if (clean.equals(commonWord)) //if the clean words is in common Words
@@ -134,7 +140,7 @@ public class TwitterController {
     @SuppressWarnings("unchecked")
     private void createListOfCleanWords() {
         ArrayList<String> cleanTokens = new ArrayList<String>(); //init new clean arraylist
-        for (String[] token : tokens) { //loop through and add cleaned token to clean tokens
+        for (String token : tokens) { //loop through and add cleaned token to clean tokens
             cleanTokens.add(this.cleanOneWord(token));
         }
 //        tokens = new ArrayList<String[]>(cleanTokens);
@@ -145,7 +151,7 @@ public class TwitterController {
      */
     @SuppressWarnings("unchecked")
     private void countAllWords() {
-        for (String[] token : tokens) {
+        for (String token : tokens) {
             if (wordCounts.containsKey(token)) {
                 int count = wordCounts.get(token) + 1;
                 wordCounts.put(token, count);
@@ -161,9 +167,9 @@ public class TwitterController {
         int maxCount = 0;
 
         String topWord = "";
-        for (Map.Entry<String[], Integer> entry : wordCounts.entrySet()) {
+        for (Map.Entry<String, Integer> entry : wordCounts.entrySet()) {
             int count = entry.getValue();
-            String[] word = entry.getKey();
+            String word = entry.getKey();
             if (count >= maxCount) {
                 topWord = word.toString();
             }
