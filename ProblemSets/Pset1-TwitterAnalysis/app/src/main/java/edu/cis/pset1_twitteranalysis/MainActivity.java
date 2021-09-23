@@ -43,7 +43,5 @@ public class MainActivity extends AppCompatActivity {
             System.out.println(ConsoleColors.PURPLE + "EvenBiggerProblems" + ConsoleColors.RESET);
             e.printStackTrace();
         }
-
-
     }
 }

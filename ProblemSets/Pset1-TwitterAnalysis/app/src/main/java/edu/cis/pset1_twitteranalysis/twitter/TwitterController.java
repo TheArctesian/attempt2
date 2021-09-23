@@ -30,7 +30,6 @@ public class TwitterController {
                 .setOAuthConsumerSecret("DXL2KqEegX03uJbQNPxecGFqPiKUhw5vCpnzukiL3OvxFaJIiF")
                 .setOAuthAccessToken("1042321525901152256-Po8en0crJfjW74hUWUgKt34n5AAAlP")
                 .setOAuthAccessTokenSecret("74bEpnfXM8O3Or3kajQERMeTjJVoYJFGXamUa5qDopE7y");
-        ;
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
         statuses = new ArrayList<Status>();
@@ -42,7 +41,6 @@ public class TwitterController {
     }
 
     /********** PART 1 *********/
-
     //can be used to get common words from the commonWords txt file
     public void getCommonWords() {
 
@@ -54,8 +52,9 @@ public class TwitterController {
             while (sc.hasNextLine()) {
                 commonWords.add(sc.nextLine());
             }
+
         } catch (Exception err) {
-            Log.d(ConsoleColors.PURPLE + "COMMON_WORDS", err.toString()+ConsoleColors.RESET);
+            Log.d(ConsoleColors.PURPLE + "COMMON_WORDS", err.toString() + ConsoleColors.RESET);
         }
     }
 
@@ -69,18 +68,13 @@ public class TwitterController {
         }
         return statusTextToReturn;
     }
-
     // Example query with paging and file output.
     private void fetchTweets(String handle) {
-
-
         //Create a twitter paging object that will start at page 1 and hole 200 entries per page.
         Paging page = new Paging(1, 200);
-
         //Use a for loop to set the pages and get the necessary tweets.
         for (int i = 1; i <= 10; i++) {
             page.setPage(i);
-
             /* Ask for the tweets from twitter and add them all to the statuses ArrayList.
             Because we set the page to receive 200 tweets per page, this should return
             200 tweets every request. */
@@ -91,11 +85,9 @@ public class TwitterController {
                 Log.d("fetchTweets", "could not get user timeline");
             }
         }
-
         //Write to the file a header message. Useful for debugging.
         int numberOfTweetsFound = statuses.size();
         System.out.println("Number of Tweets Found: " + numberOfTweetsFound);
-
         //Use enhanced for loop to print all the tweets found.
         int count = 1;
         for (Status tweet : statuses) {
@@ -103,9 +95,7 @@ public class TwitterController {
             count++;
         }
     }
-
     /********** PART 2 *********/
-
     /*
      * TODO 2: this method splits a whole status into different words. Each word
      * is considered a token. Store each token in the "tokens" arrayList
@@ -118,7 +108,6 @@ public class TwitterController {
                 tokens.add(word); //add word to token
         }
     }
-
 
     /*
      * TODO 3: return a word after removing any punctuation and turn to lowercase from it.
@@ -216,7 +205,6 @@ public class TwitterController {
     }
 
     /*********** PART 3 **********/
-
     //TODO 9: Create your own method that recommends possible teaching candidates.
     // Example: A method that returns 100 tweets from keyword(s).
     public List<Status> searchKeywords(String keywords) {
@@ -240,11 +228,6 @@ public class TwitterController {
     }
 
     public List<User> searchSchools() throws TwitterException {
-        // try
-        //     {
-        //         Query query = new Query();
-        //     }
-        // catch (TwitterException e);
         String[] Schools = {
                 "CIS 漢基國際學校",
                 "Dwight School Seoul",
@@ -257,7 +240,7 @@ public class TwitterController {
 
         for (String school : Schools) {
             List<User> users = twitter.searchUsers(school, 1);
-            for (int m = 0; m>school.length(); m++) {
+            for (int m = 0; m > school.length(); m++) {
                 schoolUsers.add(users.get(m));
             }
         }
