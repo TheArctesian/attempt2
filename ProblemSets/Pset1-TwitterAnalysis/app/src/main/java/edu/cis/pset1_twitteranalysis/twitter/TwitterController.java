@@ -89,10 +89,10 @@ public class TwitterController {
         System.out.println("Number of Tweets Found: " + numberOfTweetsFound);
         //Use enhanced for loop to print all the tweets found.
         int count = 1;
-//        for (Status tweet : statuses) {
-//            System.out.println(count + ". " + tweet.getText());
-//            count++;
-//        }
+        for (Status tweet : statuses) {
+            System.out.println(count + ". " + tweet.getText());
+            count++;
+        }
     }
 
     /********** PART 2 *********/
@@ -113,40 +113,40 @@ public class TwitterController {
         //System.out.println(tokens + ConsoleColors.CYAN + "a lof of words hear" + ConsoleColors.RESET);
     }
 
-    /*
-     * TODO 3: return a word after removing any punctuation and turn to lowercase from it.
-     * If the word is "Edwin!!", this method should return "edwin".
-     * We'll need this method later on.
-     * If the word is a common word, return null
-     */
+    // remove punctuation and set all to lower case
     @SuppressWarnings("unchecked")
     private String cleanOneWord(String word) {
-        String clean = word.toString().trim().replaceAll("[^a-zA-z]", "").toLowerCase(); //remove extra spaces replace everything non A-Z char and set it to lower case
+        String clean = word.trim().replaceAll("[^a-zA-z]", "").toLowerCase(); //remove extra spaces replace everything non A-Z char and set it to lower case
+
         for (String commonWord : commonWords) { //loop through common words
-            if (clean.equals(commonWord)) //if the clean words is in common Words
+            if (clean.equals(commonWord)
+                    || clean.equals("")) //if the clean words is in common Words
             {
                 return null;
             }
         }
+//        System.out.println(clean);
         return clean;
     }
 
-    /*
-     * TODO 4: loop through each word, get a clean version of each word
-     * and save the list with only clean words.
-     */
+    // Loop through token and clean them
     @SuppressWarnings("unchecked")
     private void createListOfCleanWords() {
-        ArrayList<String> cleanTokens = new ArrayList<String>(); //init new clean arraylist
-        for (String token : tokens) { //loop through and add cleaned token to clean tokens
-            cleanTokens.add(this.cleanOneWord(token));
+        ArrayList<String> cleanTokens = new ArrayList<String>();
+        for (String token : tokens) {
+            //loop through and add cleaned token to clean tokens
+            if (this.cleanOneWord(token) != null)
+                cleanTokens.add(this.cleanOneWord(token));
         }
-//        tokens = new ArrayList<String[]>(cleanTokens);
+        // AddALL was not working for me idk why but this works fine
+        tokens.clear();
+        for (int i = 0; i < cleanTokens.size(); i++) {
+            tokens.add(cleanTokens.get(i));
+        }
+//        System.out.println(tokens);
     }
 
-    /*
-     * TODO 5: count each clean word using. Use the frequentWords Hashmap.
-     */
+    //add word and freq to hashmap
     @SuppressWarnings("unchecked")
     private void countAllWords() {
         for (String token : tokens) {
@@ -157,25 +157,26 @@ public class TwitterController {
                 wordCounts.put(token, 1);
             }
         }
+//        System.out.println(wordCounts);
     }
 
-    //TODO 6: return the most frequent word's string in any appropriate format
+    // return most freq word
     @SuppressWarnings("unchecked")
     public String getTopWord() {
         int maxCount = 0;
-
         String topWord = "";
         for (Map.Entry<String, Integer> entry : wordCounts.entrySet()) {
             int count = entry.getValue();
             String word = entry.getKey();
             if (count >= maxCount) {
-                topWord = word.toString();
+                maxCount = count;
+                topWord = word;
             }
         }
         return topWord;
     }
 
-    //TODO 7: return the most frequent word's count as an integer.
+    // return most freq word count
     @SuppressWarnings("unchecked")
     public int getTopWordCount() {
         int maxCount = 0;
@@ -187,14 +188,8 @@ public class TwitterController {
         return maxCount;
     }
 
+    //Call all the methods
     public String findUserStats(String handle) {
-        /*
-         * TODO 8: you put it all together here. Call the functions you
-         * finished in TODO's 2-7. They have to be in the correct order for the
-         * program to work.
-         * Remember to use .clear() method on collections so that
-         * consecutive requests don't count words from previous requests.
-         */
         this.fetchTweets(handle);
         this.splitIntoWords();
         this.createListOfCleanWords();
@@ -204,7 +199,7 @@ public class TwitterController {
         this.tokens.clear();
         this.statuses.clear();
         this.wordCounts.clear();
-        System.out.println(handle + "s most common word is: " + mostFeqWord.toString() + " it came up " + wordCount + " times");
+        System.out.println(handle + "s most common word is: " + mostFeqWord + " it came up " + wordCount + " times");
         return mostFeqWord + wordCount;
     }
 
