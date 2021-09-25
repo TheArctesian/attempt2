@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import edu.cis.pset1_twitteranalysis.twitter.TwitterController;
 import twitter4j.TwitterException;
@@ -18,6 +21,20 @@ public class MainActivity extends AppCompatActivity {
         //This is not great, for extra credit you can fix this so that network calls happen on a different thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        ImageView birdA = (ImageView) findViewById(R.id.birdA);
+        ImageView birdB = (ImageView) findViewById(R.id.birdB);
+        Button start = (Button) findViewById(R.id.start);
+
+        start.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                setContentView(R.layout.io);
+            }
+        });
+
+
+
 
         //TODO 1: Tweet something!
 //        TwitterController myC = new TwitterController(this);

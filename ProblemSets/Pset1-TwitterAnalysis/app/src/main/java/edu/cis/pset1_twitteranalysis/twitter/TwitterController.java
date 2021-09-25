@@ -36,6 +36,7 @@ public class TwitterController {
         tokens = new ArrayList<String>();
         wordCounts = new HashMap<String, Integer>();
         commonWords = new ArrayList<String>();
+
         getCommonWords();
     }
 
@@ -89,26 +90,20 @@ public class TwitterController {
         System.out.println("Number of Tweets Found: " + numberOfTweetsFound);
         //Use enhanced for loop to print all the tweets found.
         int count = 1;
-        for (Status tweet : statuses) {
-            System.out.println(count + ". " + tweet.getText());
-            count++;
-        }
+//        for (Status tweet : statuses) {
+//            System.out.println(count + ". " + tweet.getText());
+//            count++;
+//        }
     }
 
     /********** PART 2 *********/
-    /*
-     * TODO 2: this method splits a whole status into different words. Each word
-     * is considered a token. Store each token in the "tokens" arrayList
-     * provided. Loop through the "statuses" ArrayList.
-     */
+    // Splits status into strings
     private void splitIntoWords() {
-        for (Status tweet : statuses) { //Loop through statuses
-//            System.out.println(tweet.getText() + tweet.getText().getClass().getName());
-            String word = tweet.getText();//New array to get the text and split it by " "
+        for (Status tweet : statuses) {
+            String word = tweet.getText();
             String[] words = word.split(" ");
-            for (int i = 0; i < words.length; i++) //loop through word
+            for (int i = 0; i < words.length; i++)
                 tokens.add(words[i]);
-            ; //add word to token
         }
         //System.out.println(tokens + ConsoleColors.CYAN + "a lof of words hear" + ConsoleColors.RESET);
     }
@@ -116,12 +111,11 @@ public class TwitterController {
     // remove punctuation and set all to lower case
     @SuppressWarnings("unchecked")
     private String cleanOneWord(String word) {
-        String clean = word.trim().replaceAll("[^a-zA-z]", "").toLowerCase(); //remove extra spaces replace everything non A-Z char and set it to lower case
-
-        for (String commonWord : commonWords) { //loop through common words
+        //remove extra spaces replace everything non A-Z char and set it to lower case
+        String clean = word.trim().replaceAll("[^a-zA-z]", "").toLowerCase();
+        for (String commonWord : commonWords) {
             if (clean.equals(commonWord)
-                    || clean.equals("")) //if the clean words is in common Words
-            {
+                    || clean.equals("")) {
                 return null;
             }
         }
@@ -225,7 +219,7 @@ public class TwitterController {
         return searchResults;
     }
 
-    public List<User> searchSchools() throws TwitterException {
+    public String[] searchSchools() throws TwitterException {
         String[] Schools = {
                 "CISHK",
                 "DwightSeoul",
@@ -234,29 +228,38 @@ public class TwitterController {
                 "standrewsbkk",
                 "ISHCMC"
         };
-        List<User> schoolUsers = new ArrayList<User>();
-        for (String school : Schools) {
-            List<User> users = twitter.searchUsers(school, 1);
-            for (int m = 0; m > Schools.length; m++) {
-                schoolUsers.add(users.get(m));
-                System.out.println(users.get(m) + "assholes in albania");
-            }
-        }
-        System.out.println(schoolUsers.toString() + "School Users");
-        return schoolUsers;
+        ArrayList<Long> followers = new ArrayList<Long>();
+       for (String school : Schools) {
+           long userId = getId(school);// user Id
+       }
+//            List<User> users = twitter.searchUsers(school, 1);
+//            for (int m = 0; m > Schools.length; m++) {
+//                schoolUsers.add(users.get(m));
+//            }
+//        }
+        return Schools;
     }
 
-    public HashMap<Integer, User> getPossibleTeachers(User school) throws TwitterException {
-        int nextCursor = -1;
-        ArrayList<User> followers = new ArrayList<User>();
+    public HashMap<Integer, User> getPossibleTeachers(String[] Schools) throws TwitterException {
+//        int nextCursor = -1;
+        ArrayList<Long> followers = new ArrayList<Long>();
+//        do {
+//            PagableResponseList<User> userResponse = twitter.getFollowersList(school.getName(), nextCursor);
+//            nextCursor = (int) userResponse.getNextCursor();
+//            followers.addAll(userResponse);
+//            System.out.println("running " + userResponse);
+//        }
+//        while (nextCursor > 0);
+        long cursor =-1L;
+        IDs ids;
         do {
-            PagableResponseList<User> userResponse = twitter.getFollowersList(school.getName(), nextCursor);
-            nextCursor = (int) userResponse.getNextCursor();
-            followers.addAll(userResponse);
-        }
-        while (nextCursor > 0);
+            ids = twitter.getFollowersIDs(cursor);
+            for(long userID : ids.getIDs()){
+                followers.add(userID);
+            }
+        } while((cursor = ids.getNextCursor())!=0 );
         HashMap<Integer, User> potentialTeacher = new HashMap<>();
-
+        System.out.println(followers);
         for (User user : followers) {
             String bio = user.getDescription().toLowerCase();
             if (bio.contains("education") ||
@@ -306,6 +309,7 @@ public class TwitterController {
     public List<User> getRecommendations() throws TwitterException {
         List<User> schools = this.searchSchools();
         List<User> recommendation = new ArrayList<User>();
+        System.out.println(recommendation);
         for (User school : schools) {
             HashMap<Integer, User> potentialTeacher = this.getPossibleTeachers(school);
             List<User> topThree = this.getTopThreeTeachers(potentialTeacher);
