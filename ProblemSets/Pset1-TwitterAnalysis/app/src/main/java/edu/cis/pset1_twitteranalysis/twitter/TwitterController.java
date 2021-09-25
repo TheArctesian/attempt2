@@ -22,6 +22,7 @@ public class TwitterController {
     Context context;
 
     public TwitterController(Context currContext) throws TwitterException {
+//        API_STATS_CALCULATOR.start();
         context = currContext;
 
         ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -219,69 +220,93 @@ public class TwitterController {
         return searchResults;
     }
 
-    public Long[] searchSchools() throws TwitterException {
+    public String[] schoolHandles() throws TwitterException {
         /**
          * this line is unnecessary but i wanted to show where these came from
          * @schools are some of the top international skls according to some website
          * @SchoolIds are the ids of them, i just used a online translator to do it so i dont have to waste requests
-        * */
-        String[] Schools = {
+         * */
+        String[] SchoolsHandle = {
                 "CISHK",
                 "DwightSeoul",
                 "SJIIES",
                 "bisphuket",
                 "standrewsbkk",
-                "ISHCMC"
+                "ISHCMC",
+                "Elag87",
+                "PcarsonPeter"
         };
+        return SchoolsHandle;
+    }
+
+    public Long[] Schoolsids() throws TwitterException {
+        /**
+         * @SchoolIds are the ids of them, i just used a online translator to do it so i dont have to waste requests
+         * */
         Long[] SchoolIds = {
                 1261034114L,
                 496595545L,
                 1427407885L,
                 88366282L,
                 770468923720470528L,
-                348214565L
+                348214565L,
+                164050973L,
+                493136102L
         };
-//        for (String school : Schools) {
-//            long userId = getId(school);// user Id
-//        }
-//            List<User> users = twitter.searchUsers(school, 1);
-//            for (int m = 0; m > Schools.length; m++) {
-//                schoolUsers.add(users.get(m));
-//            }
-//        }
         return SchoolIds;
     }
 
-    public HashMap<Integer, User> getPossibleTeachers() throws TwitterException {
-//        int nextCursor = -1;
+    /**
+     * @return re
+     * @throws TwitterException
+     */
+
+
+    public HashMap<String, ArrayList<Long>> followersIdforJson(int arrayIndex) throws TwitterException {
         ArrayList<Long> followers = new ArrayList<Long>();
-//        do {
-//            PagableResponseList<User> userResponse = twitter.getFollowersList(school.getName(), nextCursor);
-//            nextCursor = (int) userResponse.getNextCursor();
-//            followers.addAll(userResponse);
-//            System.out.println("running " + userResponse);
-//        }
-//        while (nextCursor > 0);
         long cursor = -1L;
         IDs ids;
-        Long[] SklsIds = this.searchSchools();
-        for (Long identlong : SklsIds) {
-            do {
-                if (0 < SklsIds.length) {
-                    ids = twitter.getFriendsIDs(identlong, cursor);
-                } else {
-                    ids = twitter.getFriendsIDs(cursor);
-                }
-                for (long id : ids.getIDs()) {
-                    followers.add(id);
+        Long[] SklsIds = this.Schoolsids();
+//        for (Long identlong : SklsIds) {
+        do {
+            if (0 < 1) {
+                ids = twitter.getFriendsIDs(SklsIds[arrayIndex], cursor);
+            } else {
+                ids = twitter.getFriendsIDs(cursor);
+            }
+            for (long id : ids.getIDs()) {
+                followers.add(id);
 //                    System.out.println(id);
-                }
-            } while ((cursor = ids.getNextCursor()) != 0);
+            }
+        } while ((cursor = ids.getNextCursor()) != 0);
+//        }
+
+        String[] Schools = this.schoolHandles();
+
+        HashMap<String, ArrayList<Long>> sklsIds = new HashMap<String, ArrayList<Long>>();
+        sklsIds.put(Schools[arrayIndex], followers);
+//        System.out.println(sklsIds);
+        return sklsIds;
+    }
+
+    public ArrayList<User> ListofPossibleTeachers(int arrayIndex) throws TwitterException {
+        HashMap<String, ArrayList<Long>> sklsIds = this.followersIdforJson(arrayIndex);
+        ArrayList<User> users = new ArrayList<User>();
+        Collection<ArrayList<Long>> followerid = sklsIds.values();
+        for (ArrayList<Long> ALid : followerid) {
+            ArrayList<Long> placeholderForIds = ALid;
+            for (Long id : placeholderForIds) {
+                users.add(twitter.showUser(id)); //this is way too much data
+            }
         }
-        HashMap<Integer, User> potentialTeacher = new HashMap<>();
-        System.out.println(followers);
-        for (Long ideez : followers) {
-            String bio = ideez.getDescription().toLowerCase();
+        return users;
+    }
+
+    public ArrayList<User> checkIfisteacher(int arrayIndex) throws TwitterException {
+        ArrayList<User> followersUser = this.ListofPossibleTeachers(arrayIndex);
+        ArrayList<User> teachers = new ArrayList<User>();
+        for (User pteacher : followersUser) {
+            String bio = pteacher.getDescription().toLowerCase();
             if (bio.contains("education") ||
                     bio.contains("teacher") ||
                     bio.contains("school") ||
@@ -291,6 +316,7 @@ public class TwitterController {
                     bio.contains("mentor") ||
                     bio.contains("coach") ||
                     bio.contains("researcher") ||
+                    bio.contains("science") ||
                     bio.contains("trainer") ||
                     bio.contains("ed") ||
                     bio.contains("int'l") ||
@@ -307,36 +333,92 @@ public class TwitterController {
                     bio.contains("physics") ||
                     bio.contains("math") ||
                     bio.contains("counselor")) {
-                potentialTeacher.put(user.getFollowersCount(), user);
+                teachers.add(pteacher);
+                System.out.println("is a teacher");
+
+            } else {
+                System.out.println("is not a teacher");
             }
         }
-        System.out.println(followers.size());
-        return potentialTeacher;
-    }
-
-    public List<User> getTopThreeTeachers(HashMap<Integer, User> popularTeacher) {
-        Set<Integer> popularTeacherKeySet = popularTeacher.keySet();
-        ArrayList<Integer> numberOfFollowers = new ArrayList<Integer>(popularTeacherKeySet);
-        Collections.sort(numberOfFollowers);
-        ArrayList<User> teachers = new ArrayList<User>();
-        for (int i = 0; i < 3; i++) {
-            teachers.add(popularTeacher.get(numberOfFollowers.get(i)));
-        }
-//        System.out.println(teachers + "should be teachers");
+        System.out.println(teachers.size());
         return teachers;
     }
 
-    public List<User> getRecommendations() throws TwitterException {
-        //List<User> schools = this.searchSchools();
-        List<User> recommendation = new ArrayList<User>();
-        System.out.println(recommendation);
-//        for (User school : schools) {
-//            HashMap<Integer, User> potentialTeacher = this.getPossibleTeachers(school);
-//            List<User> topThree = this.getTopThreeTeachers(potentialTeacher);
-//            recommendation.addAll(topThree);
-//        }
-//        System.out.println(topThree.toString());
-        return recommendation;
-    }
+    //
+    public HashMap<Integer, User> getPossibleTeachers(int arrayIndex) throws TwitterException {
+        ArrayList<User> teachers = this.checkIfisteacher(arrayIndex);
+        HashMap<Integer, User> teacherRank = new HashMap<>();
+        for (User teacher : teachers) {
+            teacherRank.put(teacher.getFollowersCount(), teacher);
+        }
+//        System.out.println(teacherRank);
+        return teacherRank;
 }
 
+    public ArrayList<User> getTeacherReco(int arrayIndex) throws TwitterException {
+        HashMap<Integer, User> teacherRank = this.getPossibleTeachers(arrayIndex);
+        ArrayList<User> teacherReco = new ArrayList<User>();
+        Set<Integer> teachersKeySet = teacherRank.keySet();
+        ArrayList<Integer> numberOfFollowers = new ArrayList<Integer>(teachersKeySet);
+        Collections.sort(numberOfFollowers);
+        for (int i = 20; i < 40; i++) {
+            teacherReco.add(teacherRank.get(numberOfFollowers.get(i)));
+//            System.out.println("added");
+//            System.out.println(teacherReco);
+        }
+//        System.out.println(teacherReco + "should be teachers");
+        return teacherReco;
+    }
+
+    public ArrayList<String> getName(int arrayIndex) throws TwitterException {
+        ArrayList<User> teacherRank = this.getTeacherReco(arrayIndex);
+        ArrayList<String> teacherScreenName = new ArrayList<String>();
+        for (User user : teacherRank) {
+            teacherScreenName.add(user.getName());
+        }
+        System.out.println(teacherScreenName);
+        return null;
+    }
+    public HashMap<Integer, String> getTeachers(int arrayIndex) throws TwitterException {
+        ArrayList<String> teacherRecs = this.getName(arrayIndex);
+        HashMap<Integer, String> teacherRank = new HashMap<>();
+        int i = 1;
+        for (String teacher : teacherRecs) {
+//            String x = teacher.getName();
+//            String y = teacher.getDescription();
+//            String w = teacher.getLocation();
+//            String z = teacher.getEmail();
+//            System.out.println(teacher.getName(), teacher.getDescription(), teacher.getLocation(), teacher.getEmail());
+//            String[] UserInfro = {x,y,w,z};
+//            System.out.println(UserInfro);
+            teacherRank.put(i, teacher);
+            i += 1;
+        }
+        System.out.println(teacherRank);
+        return teacherRank;
+
+    }
+//    public Image getProfileImage(User user){
+//        URL url = user.getProfileImageURL();
+//        ImageIcon img = new ImageIcon(url);
+//        return Image;
+//    }
+
+
+//    public List<User> getRecommendations() throws TwitterException {
+//        //List<User> schools = this.searchSchools();
+//        List<User> recommendation = new ArrayList<User>();
+//        System.out.println(recommendation);
+////        for (User school : schools) {
+////            HashMap<Integer, User> potentialTeacher = this.getPossibleTeachers(school);
+////            List<User> topThree = this.getTopThreeTeachers(potentialTeacher);
+////            recommendation.addAll(topThree);
+////        }
+////        System.out.println(topThree.toString());
+//        return recommendation;
+//    }
+
+//    public void stats(){
+//        API_STATS_CALCULATOR.getAvarageTIme();
+//    }
+}

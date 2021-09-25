@@ -40,20 +40,21 @@ public class MainActivity extends AppCompatActivity {
 //        TwitterController myC = new TwitterController(this);
         try {
             TwitterController myC = new TwitterController(this);
-            try{
-//                myC.findUserStats("cs_cis");
-                String result = myC.findUserStats("cs_cis");
-                System.out.println(result + "GOOGOGOGOGOGGOGOGAOGAGAGAGAGAGA");
-//                myC.postTweet("yes i am just bad "); //this will tweet to your account
-            } catch (Exception e) {
-                System.out.println("problem in finding handle");
-                e.printStackTrace();
-            }
+//            try{
+////                myC.findUserStats("cs_cis");
+//                String result = myC.findUserStats("cs_cis");
+//                System.out.println(result + "GOOGOGOGOGOGGOGOGAOGAGAGAGAGAGA");
+////                myC.postTweet("yes i am just bad "); //this will tweet to your account
+//            } catch (Exception e) {
+//                System.out.println("problem in finding handle");
+//                e.printStackTrace();
+//            }
             try {
-                myC.getPossibleTeachers();
+                myC.getTeachers(7);
 //                System.out.println(ConsoleColors.GREEN + "Got Recommendation" + ConsoleColors.RESET);
             } catch (TwitterException e) {
-                System.out.println(ConsoleColors.PURPLE + "BigProblems" + ConsoleColors.RESET);
+                System.out.println("Twitter Exception: BigProblems \n " +
+                        "someone has been using the apis keys too much before i got a chance ");
                 e.printStackTrace();
 
             }
@@ -62,5 +63,7 @@ public class MainActivity extends AppCompatActivity {
             System.out.println(ConsoleColors.PURPLE + "EvenBiggerProblems" + ConsoleColors.RESET);
             e.printStackTrace();
         }
+
+
     }
 }
