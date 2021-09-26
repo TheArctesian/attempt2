@@ -198,7 +198,7 @@ public class TwitterController {
         this.statuses.clear();
         this.wordCounts.clear();
         System.out.println(mostFeqWord);
-        String Output = (handle + "s most common word is: word, it came up 66 times");
+        String Output = (handle + "s most common word is:" + mostFeqWord + ", it came up " + wordCount +" times");
         return Output;
     }
 
@@ -337,7 +337,7 @@ public class TwitterController {
         }
 //        System.out.println(teacherRank);
         return teacherRank;
-}
+    }
 
     public ArrayList<User> getTeacherRec(int arrayIndex) throws TwitterException {
         HashMap<Integer, User> teacherRank = this.getPossibleTeachersFollowers(arrayIndex);
