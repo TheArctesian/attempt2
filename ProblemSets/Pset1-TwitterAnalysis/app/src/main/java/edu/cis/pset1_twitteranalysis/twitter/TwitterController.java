@@ -334,10 +334,10 @@ public class TwitterController {
                     bio.contains("math") ||
                     bio.contains("counselor")) {
                 teachers.add(pteacher);
-                System.out.println("is a teacher");
+//                System.out.println("is a teacher");
 
             } else {
-                System.out.println("is not a teacher");
+//                System.out.println("is not a teacher");
             }
         }
         System.out.println(teachers.size());
@@ -370,34 +370,53 @@ public class TwitterController {
         return teacherReco;
     }
 
-    public ArrayList<String> getName(int arrayIndex) throws TwitterException {
+    public ArrayList<String> getTeacherName(int arrayIndex) throws TwitterException {
         ArrayList<User> teacherRank = this.getTeacherReco(arrayIndex);
         ArrayList<String> teacherScreenName = new ArrayList<String>();
         for (User user : teacherRank) {
             teacherScreenName.add(user.getName());
         }
-        System.out.println(teacherScreenName);
-        return null;
+//        System.out.println(teacherScreenName);
+        return teacherScreenName;
     }
-    public HashMap<Integer, String> getTeachers(int arrayIndex) throws TwitterException {
-        ArrayList<String> teacherRecs = this.getName(arrayIndex);
-        HashMap<Integer, String> teacherRank = new HashMap<>();
-        int i = 1;
-        for (String teacher : teacherRecs) {
-//            String x = teacher.getName();
-//            String y = teacher.getDescription();
-//            String w = teacher.getLocation();
-//            String z = teacher.getEmail();
-//            System.out.println(teacher.getName(), teacher.getDescription(), teacher.getLocation(), teacher.getEmail());
-//            String[] UserInfro = {x,y,w,z};
-//            System.out.println(UserInfro);
-            teacherRank.put(i, teacher);
-            i += 1;
-        }
-        System.out.println(teacherRank);
-        return teacherRank;
 
+    public ArrayList<String> getTeacherDescription(int arrayIndex) throws TwitterException {
+        ArrayList<User> teacherRank = this.getTeacherReco(arrayIndex);
+        ArrayList<String> teacherDiscription = new ArrayList<String>();
+        for (User user : teacherRank) {
+            String bio = user.getDescription();
+            teacherDiscription.add(bio);
+        }
+//        System.out.println(teacherDiscription);
+        return teacherDiscription;
     }
+    public ArrayList<String> getTeacherPhoto(int arrayIndex) throws TwitterException {
+        ArrayList<User> teacherRank = this.getTeacherReco(arrayIndex);
+        ArrayList<String> teacherPhotos = new ArrayList<String>();
+        for (User user : teacherRank) {
+            String photo = user.getDescription();
+            teacherPhotos.add(photo);
+        }
+
+//        System.out.println(teacherPhotos);
+        return teacherPhotos;
+    }
+
+//    public HashMap<String, String> TeacherInfoForGui (int arrayIndex) throws TwitterException {
+//        HashMap<String, String> teacherInfo = new HashMap<String, String>();
+//        ArrayList<String> teacherName = this.getTeacherUserName(arrayIndex);
+//        ArrayList<String> teacherDiscription = this.getTeacherDescription(arrayIndex);
+//        ArrayList<String> TeacherPhoto = this.getTeacherPhoto(arrayIndex);
+//        int i = 0;
+//        for (String teacherD : teacherDiscription){
+//            teacherInfo.put(teacherD, teacherName.get(i));
+//            i++;
+//        }
+//        System.out.println(TeacherPhoto);
+//        System.out.println(teacherInfo);
+//        System.out.println("ENDNEDNENDENDNENDNEDNEND");
+//        return teacherInfo;
+//    }
 //    public Image getProfileImage(User user){
 //        URL url = user.getProfileImageURL();
 //        ImageIcon img = new ImageIcon(url);

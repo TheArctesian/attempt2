@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import edu.cis.pset1_twitteranalysis.twitter.TwitterController;
 import twitter4j.TwitterException;
 
@@ -50,7 +53,13 @@ public class MainActivity extends AppCompatActivity {
 //                e.printStackTrace();
 //            }
             try {
-                myC.getTeachers(7);
+                ArrayList<String> Names = myC.getTeacherName(7);
+                ArrayList<String> Discription = myC.getTeacherDescription(7);
+                ArrayList<String> Photos = myC.getTeacherPhoto(7);
+                System.out.println(Names);
+                System.out.println(Discription);
+                System.out.println(Photos);
+                System.out.println("LIFE IS OVER ITS ALL DONE IT WORKS");
 //                System.out.println(ConsoleColors.GREEN + "Got Recommendation" + ConsoleColors.RESET);
             } catch (TwitterException e) {
                 System.out.println("Twitter Exception: BigProblems \n " +
