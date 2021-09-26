@@ -12,7 +12,10 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -135,7 +138,7 @@
                     app:layout_constraintVertical_bias="0.207" />
 
                 <TextView
-                    android:id="@+id/TeacherBio_2"
+                    android:id="@+id/TeacherBio_1"
                     android:layout_width="241dp"
                     android:layout_height="37dp"
                     android:text="Educator, thinker, inquirer old head on old shoulders; doesn’t suffer fools easily; grumpy old man in training - course completed it seems"
@@ -162,6 +165,43 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/TeacherImg_2"
+                    android:layout_width="64dp"
+                    android:layout_height="62dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_2"
+                    app:layout_constraintHorizontal_bias="0.132"
+                    app:layout_constraintStart_toStartOf="@+id/TeacherButton_2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/TeacherHandle_2"
+                    android:layout_width="128dp"
+                    android:layout_height="23dp"
+                    android:text="Cumcumcum/"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/TeacherButton_2"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_2"
+                    app:layout_constraintHorizontal_bias="0.116"
+                    app:layout_constraintStart_toEndOf="@+id/TeacherImg_2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.207" />
+
+                <TextView
+                    android:id="@+id/TeacherBio_2"
+                    android:layout_width="241dp"
+                    android:layout_height="37dp"
+                    android:text="Educator, thinker, inquirer old head on old shoulders; doesn’t suffer fools easily; grumpy old man in training - course completed it seems"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_2"
+                    app:layout_constraintHorizontal_bias="0.313"
+                    app:layout_constraintStart_toEndOf="@+id/TeacherImg_2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.698" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -179,6 +219,43 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/TeacherImg_3"
+                    android:layout_width="64dp"
+                    android:layout_height="62dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_3"
+                    app:layout_constraintHorizontal_bias="0.132"
+                    app:layout_constraintStart_toStartOf="@+id/TeacherButton_3"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/TeacherHandle_3"
+                    android:layout_width="128dp"
+                    android:layout_height="23dp"
+                    android:text="Cumcumcum/"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/TeacherButton_3"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_3"
+                    app:layout_constraintHorizontal_bias="0.116"
+                    app:layout_constraintStart_toEndOf="@+id/TeacherImg_3"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.207" />
+
+                <TextView
+                    android:id="@+id/TeacherBio_3"
+                    android:layout_width="241dp"
+                    android:layout_height="37dp"
+                    android:text="Educator, thinker, inquirer old head on old shoulders; doesn’t suffer fools easily; grumpy old man in training - course completed it seems"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_3"
+                    app:layout_constraintHorizontal_bias="0.313"
+                    app:layout_constraintStart_toEndOf="@+id/TeacherImg_3"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.698" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -196,6 +273,43 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/TeacherImg_4"
+                    android:layout_width="64dp"
+                    android:layout_height="62dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_4"
+                    app:layout_constraintHorizontal_bias="0.132"
+                    app:layout_constraintStart_toStartOf="@+id/TeacherButton_4"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/TeacherHandle_4"
+                    android:layout_width="128dp"
+                    android:layout_height="23dp"
+                    android:text="Cumcumcum/"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/TeacherButton_4"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_4"
+                    app:layout_constraintHorizontal_bias="0.116"
+                    app:layout_constraintStart_toEndOf="@+id/TeacherImg_4"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.207" />
+
+                <TextView
+                    android:id="@+id/TeacherBio_4"
+                    android:layout_width="241dp"
+                    android:layout_height="37dp"
+                    android:text="Educator, thinker, inquirer old head on old shoulders; doesn’t suffer fools easily; grumpy old man in training - course completed it seems"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_4"
+                    app:layout_constraintHorizontal_bias="0.313"
+                    app:layout_constraintStart_toEndOf="@+id/TeacherImg_4"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.698" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -213,6 +327,44 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/TeacherImg_5"
+                    android:layout_width="64dp"
+                    android:layout_height="62dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_5"
+                    app:layout_constraintHorizontal_bias="0.132"
+                    app:layout_constraintStart_toStartOf="@+id/TeacherButton_5"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/TeacherHandle_5"
+                    android:layout_width="128dp"
+                    android:layout_height="23dp"
+                    android:text="Cumcumcum/"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/TeacherButton_5"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_5"
+                    app:layout_constraintHorizontal_bias="0.116"
+                    app:layout_constraintStart_toEndOf="@+id/TeacherImg_5"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.207" />
+
+                <TextView
+                    android:id="@+id/TeacherBio_5"
+                    android:layout_width="241dp"
+                    android:layout_height="37dp"
+                    android:text="Educator, thinker, inquirer old head on old shoulders; doesn’t suffer fools easily; grumpy old man in training - course completed it seems"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_5"
+                    app:layout_constraintHorizontal_bias="0.313"
+                    app:layout_constraintStart_toEndOf="@+id/TeacherImg_5"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.698" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -230,6 +382,43 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/TeacherImg_6"
+                    android:layout_width="64dp"
+                    android:layout_height="62dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_6"
+                    app:layout_constraintHorizontal_bias="0.132"
+                    app:layout_constraintStart_toStartOf="@+id/TeacherButton_6"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/TeacherHandle_6"
+                    android:layout_width="128dp"
+                    android:layout_height="23dp"
+                    android:text="Cumcumcum/"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/TeacherButton_6"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_6"
+                    app:layout_constraintHorizontal_bias="0.116"
+                    app:layout_constraintStart_toEndOf="@+id/TeacherImg_6"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.207" />
+
+                <TextView
+                    android:id="@+id/TeacherBio_6"
+                    android:layout_width="241dp"
+                    android:layout_height="37dp"
+                    android:text="Educator, thinker, inquirer old head on old shoulders; doesn’t suffer fools easily; grumpy old man in training - course completed it seems"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_6"
+                    app:layout_constraintHorizontal_bias="0.313"
+                    app:layout_constraintStart_toEndOf="@+id/TeacherImg_6"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.698" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -248,6 +437,43 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageView
+                    android:id="@+id/TeacherImg_7"
+                    android:layout_width="64dp"
+                    android:layout_height="62dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_7"
+                    app:layout_constraintHorizontal_bias="0.132"
+                    app:layout_constraintStart_toStartOf="@+id/TeacherButton_7"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/TeacherHandle_7"
+                    android:layout_width="128dp"
+                    android:layout_height="23dp"
+                    android:text="Cumcumcum/"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/TeacherButton_7"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_7"
+                    app:layout_constraintHorizontal_bias="0.116"
+                    app:layout_constraintStart_toEndOf="@+id/TeacherImg_7"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.207" />
+
+                <TextView
+                    android:id="@+id/TeacherBio_7"
+                    android:layout_width="241dp"
+                    android:layout_height="37dp"
+                    android:text="Educator, thinker, inquirer old head on old shoulders; doesn’t suffer fools easily; grumpy old man in training - course completed it seems"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_7"
+                    app:layout_constraintHorizontal_bias="0.313"
+                    app:layout_constraintStart_toEndOf="@+id/TeacherImg_7"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.698" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -265,6 +491,43 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/TeacherImg_8"
+                    android:layout_width="64dp"
+                    android:layout_height="62dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_8"
+                    app:layout_constraintHorizontal_bias="0.132"
+                    app:layout_constraintStart_toStartOf="@+id/TeacherButton_8"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/TeacherHandle_8"
+                    android:layout_width="128dp"
+                    android:layout_height="23dp"
+                    android:text="Cumcumcum/"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/TeacherButton_8"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_8"
+                    app:layout_constraintHorizontal_bias="0.116"
+                    app:layout_constraintStart_toEndOf="@+id/TeacherImg_8"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.207" />
+
+                <TextView
+                    android:id="@+id/TeacherBio_8"
+                    android:layout_width="241dp"
+                    android:layout_height="37dp"
+                    android:text="Educator, thinker, inquirer old head on old shoulders; doesn’t suffer fools easily; grumpy old man in training - course completed it seems"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/TeacherButton_8"
+                    app:layout_constraintHorizontal_bias="0.313"
+                    app:layout_constraintStart_toEndOf="@+id/TeacherImg_8"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.698" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EACC73"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/birdB"
+        android:layout_width="252dp"
+        android:layout_height="298dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.187"
+        app:srcCompat="@drawable/ic_iconmonstr_twitter_1"
+        app:tint="#FFFFFF" />
+
+    <Button
+        android:id="@+id/postTweet"
+        android:layout_width="250dp"
+        android:layout_height="75dp"
+        android:text="Post a Tweet"
+        android:textSize="25sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/birdB"
+        app:layout_constraintVertical_bias="0.849" />
+
+    <EditText
+        android:id="@+id/txtOutput"
+        android:layout_width="277dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="101dp"
+        android:layout_marginBottom="43dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="User posted a tweet"
+        app:layout_constraintBottom_toTopOf="@+id/textInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/birdB" />
+
+    <TextView
+        android:id="@+id/textInput"
+        android:layout_width="249dp"
+        android:layout_height="54dp"
+        android:text="Tweet will be outputed to @cs_cis"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.745" />
+    <Button
+        android:id="@+id/Back"
+        android:layout_width="125dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#03A9F4"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
+</androidx.constraintlayout.widget.ConstraintLayout>
