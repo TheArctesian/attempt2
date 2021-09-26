@@ -2,7 +2,7 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/theArctesian/attempt2)
 ![GitHub top language](https://img.shields.io/github/languages/top/thearctesian/attempt2)
 
-A Android Studio project that returns teacher recommendations
+An Android Studio project that returns teacher recommendations
 
 ## Notes
 
