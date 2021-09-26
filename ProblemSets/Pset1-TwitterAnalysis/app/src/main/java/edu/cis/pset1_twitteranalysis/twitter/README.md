@@ -7,7 +7,7 @@ A Android Studio project that returns teacher recommendations
 ## Notes
 
 
-- So I was going to use a method to just get user id's based off the handle but i figured out i had to restrict the amount of calls I made so I can run my method. So I just used a to do turn the handles into ids so i didnt have to do it everytime. [a link](href="https://tweeterid.com/">webstite)
+- So I was going to use a method to just get user id's based off the handle but i figured out i had to restrict the amount of calls I made so I can run my method. So I just used a to do turn the handles into ids so i didnt have to do it everytime. [a link](https://tweeterid.com/)
 
 - I used a bunch of stack overflow 
 
