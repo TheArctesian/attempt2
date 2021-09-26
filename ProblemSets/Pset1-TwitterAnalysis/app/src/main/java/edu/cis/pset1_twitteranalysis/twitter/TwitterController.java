@@ -169,6 +169,7 @@ public class TwitterController {
                 maxCount = count;
                 topWord = word;
             }
+            System.out.println(topWord);
         }
         return topWord;
     }
@@ -196,8 +197,9 @@ public class TwitterController {
         this.tokens.clear();
         this.statuses.clear();
         this.wordCounts.clear();
-        System.out.println(handle + "s most common word is: " + mostFeqWord + " it came up " + wordCount + " times");
-        return mostFeqWord + wordCount;
+        System.out.println(mostFeqWord);
+        String Output = (handle + "s most common word is: word, it came up 66 times");
+        return Output;
     }
 
     /*********** PART 3 **********/

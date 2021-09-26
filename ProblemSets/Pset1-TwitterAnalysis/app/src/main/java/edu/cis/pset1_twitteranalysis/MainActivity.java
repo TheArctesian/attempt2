@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setContentView(R.layout.io);
+                getSomeTeachers();
             }
         });
         postTweet.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +86,33 @@ public class MainActivity extends AppCompatActivity {
         getTop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setContentView(R.layout.io);
+                setContentView(R.layout.get_top);
+                getCommon();
+            }
+        });
+    }
+
+    public void getSomeTeachers() {
+
+    }
+
+    public void getCommon(){
+        Button bostTweet = (Button) findViewById(R.id.postTweet);
+        bostTweet.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                EditText txtOutput = findViewById(R.id.txtOutput);
+                TextView topWord = findViewById(R.id.outputTxt);
+                String tweetInput = txtOutput.getText().toString();
+                String output = myC.findUserStats(tweetInput);
+                topWord.setText(output);
+            }
+        });
+        Button backButton = (Button) findViewById(R.id.Back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                setContentView(R.layout.activity_main);
             }
         });
     }
